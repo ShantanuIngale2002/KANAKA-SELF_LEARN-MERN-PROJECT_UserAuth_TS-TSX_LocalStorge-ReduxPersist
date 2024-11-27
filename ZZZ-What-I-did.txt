@@ -1,0 +1,182 @@
+MERN Crash Course | JWT Authentication, Redux Toolkit, Deployment & More
+
+USER LOGIN, REGISTER, AUTH, LOGOUT, PROFILE
+
+Youtube Link : https://youtu.be/R4AhvYORZRY?si=ajP6aZMXh6-YxX_2
+
+Acquired requirements :
+### Project
+- Node
+- VS code
+- Mongo Atlas (online)
+- concurrently (package to run server and frontend together , from root using 1 command)
+### Backend
+- express
+- dotenv
+- mongoose
+- bcryptjs
+- jsonwebtoken
+- cookie-parser
+- nodemon
+### Frontend
+- vite
+- react-bootstrp
+- bootstrap
+- react-icons
+- react-router-dom
+- react-router-bootstrap
+- @reduxjs/toolkit
+- react-redux
+
+
+
+------- SESSION 1st Started @00:00:00 on 22/11/2024 (Friday) -------------------------------------------------------
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ BACKEND ======================>>>>>>>>>>>
+
+- created 'mern profile' folder as empty.
+- opened in vscode and then its terminal
+	> npm init
+	> npm i express dotenv mongoose bcryptjs jsonwebtoken cookie-parser
+- created folder backend and under it the file 'server.js'
+- in package.json added "type":"module" under description.. ; allows us to use 'import' instead of 'require'.
+- In server.js : initiated server's app now making it listen on a port.
+- In package.json replaced scripts w/ :
+	>"scripts": {
+    		"start": "node backend/server.js",
+   		"server": "nodemon backend/server.js"
+  	  },
+- above will run our express backend, if we do like 'npm run server'.
+
+- installing nodemon from terminal - npm i -D nodemon
+- created .env and gitignore and added appropriate script
+- created backend/controllers/userController.js also backend/routes/userRoutes.js and scripted them accordingly.
+- IMP while using 'import' to import file use '.js' to files.
+- created config/db.js in order to connect to atlas and use in server.js
+- Used postmon for 'POST localhost:5000/api/users/auth' and got response as in userController.
+- Installed 'npm i express-async-handler' : Since express listen to promise of all the methods associated w/ routes; we need to handle them async-ly.
+
+- created middleware/errorMiddleware and scripted
+- created model/userModel and scripted User schema
+
+- Now we need to code for user to performs op'r's for such, while login/auth and register we need to 
+	> encrypt 'password' (used bycryptjs in userModel.js i.encrypt before save into db ie.register and ii.method to compare password while login)
+	> provide 'cookie' to user (created utils/generateToken.js and used in userController.js while login and register)
+
+- For 'register user' scripted userController.js
+	> parse req body
+	> find if user w/ email already exist, error if
+	> else create new user and if valid save and return cookie and json data.
+
+- For 'logging-in/auth user' scripted userController.js
+	> parse req body
+	> find if user w/ email already exist
+	> if exist and password matches, return json data and cookie else invalid email/password error.
+
+- For 'loggin-out user' scripted userController.js
+	> replace cookie created as empty and make it expire right away w/ new Date(0) and return res msg.
+
+- To make use of cookie we generating..
+	> created middleware/authMiddleware.js
+
+- authMiddleware.js has scripted w/ 'protect' method that validates the token, ie. it will validate token for profile get and put/update, bcz they can be accessed w/o login, register or after logout.
+
+- protect passed to get and put router from '/profile' in userRoute.js as an 1st parameter.
+
+
+
+
+
+------- SESSION 2nd Started @01.20.25 on 25/11/2024 (Monday) --------------------------------------------------------
+
+- Scripted getUserProfile and UdpdateUserProfile in controller.
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ FRONTEND ======================>>>>>>>>>>>
+
+- Creating frontend project (in vdo : javascript but im using typescript)
+
+- in project folder using vscode terminal
+	> npm create vite@latest frontend	(select : y -> react -> typescript)
+
+- goto to folder and init dependencies
+	> cd frontend
+	> npm i
+
+- now in "vite.config.ts" under 'definConfig' object, adding this
+	> server: {
+    	> 	port: 3000,
+    	>	proxy: {
+      	>		'/api':{
+        >			target: 'http://localhost:5000',
+        >			changeOrigin: true
+      	>		}
+    	>	}
+  	> }
+- since server/backend is on port:5000 and frontend on port:3000, we need to make sure any api on frontend hits on 5000 not 3000 ie. on server port not frontend port.
+
+- in root's "package.json" under 'scripts' added this key-value,
+	> "client": "npm run dev --prefix frontend"
+- above will run our vite frontend, if we do like 'npm run client'.
+
+- Now we can go-to,
+	> backend  : do 'npm run server' >> it will run backend server @5000
+	> frontend : do 'npm run client' >> it will run frontend UI @3000
+
+- But we can run them, together from root folder using single command, using package 'concurrently'. To do so,
+	> (in root) > npm i -D concurrently
+
+- in root's "package.json" under 'scripts' added this key-value,
+	> "dev": "concurrently \"npm run server\" \"npm run client\" "
+
+- Now we can just do 'npm run dev' on root, it will execute both server and client at their respective ports.
+
+- Cleared, app.tsx, index.css, app.css files that are provided initally.
+
+- In frontend folder path, using vs code terminal install,
+	> npm i react-bootstrap react-icons
+	> npm i bootstrap
+
+- To use bootstrap in app, used this import in 'main.tsx',
+	> import 'bootstrap/dist/css/bootstrap.min.css'
+
+- Created src/Components/Header.tsx and imported in main.tsx
+
+- Created src/Screens/HomeScreen.tsx and imported in main.tsx and used below <Header />
+
+- Created src/Components/Hero.tsx and imported in HomeScreen.tsx
+
+- Now for using Navigation, In frontend folder install,
+	> npm i react-router-dom react-router-bootstrap
+
+- Now in main.tsx added some router DOM elements comprising of root-'/' for HomeScreen components 
+
+- In App.tsx added <Outlet> where react components shall rendered as child.
+
+- In Header.tsx and Hero.tsx, I used Link component that can change React components, to not re-fresh the page while Navigation.
+
+- Created src/components/FormContainer.tsx that hold parent-like template to sign in and up page screens.
+
+- Created src/screens/LoginScreen.tsx and RegisterScreen.tsx ; for sign in and up resp. Also added their route path in main.tsx
+
+
+
+
+
+------- SESSION 3rd Started @--.--.-- on --/11/2024 (--day--) --------------------------------------------------------
+
+- Now we implementing the data persisting, using React Redux, to install,
+	> Goto Frontend and >> 'npm i @reduxjs/toolkit react-redux'
+
+- Created src/store Folder to configure redux.
+
+- Created src/store/store.ts to configureStore for app. Also with Redux-Provider, provided store to whole app in main.tsx.
+
+- Created src/store/apiSlice.ts
+
+
+
+
+
+
+
