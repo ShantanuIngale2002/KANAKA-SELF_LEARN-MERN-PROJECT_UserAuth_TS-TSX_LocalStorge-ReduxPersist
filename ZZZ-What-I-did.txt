@@ -172,15 +172,21 @@ Acquired requirements :
 
 - Created src/store/store.ts to configureStore for app. Also with Redux-Provider, provided store to whole app in main.tsx.
 
+
+
+----------------------------------------------- ADDED GIT Here
+
 - Created src/store/apiSlice.ts
+	> To make async requests to server/backend, we use this slice service.
+	> Here, we need to manually add thunk middleware, but its built-in here.
+	> Now in baseUrl we added '' only bcz, we are using single endpoint to req ie. configured under proxy in vite.config.ts file.
+	> tagTypes has do w/ cache, we only have 'user' that for auth will do. For many tags like products we can added them in that array.
+	> This apiSlice acts as a parent-structure that helps other slices to make req to.
+	> in endpoints you can specify endpoints that slices may use. Here in our project we only have 1 slice authslice and only 1 endpoint.
 
-
------------------------------------------------ ADDED GIT Header
+- Added apiSlice into store.ts
 
 - 
-
-
-
 
 
 

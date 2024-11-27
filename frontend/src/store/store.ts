@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 // import { persistReducer, persistStore } from "redux-persist";
 // import { storage } from "redux-persist/lib/storage";
 import authReducer from "./slices/authSlice.ts";
+import { apiSlice } from "./slices/apiSlice.ts";
 
 // const persistConfig = {
 //     key: "root",
@@ -13,6 +14,7 @@ import authReducer from "./slices/authSlice.ts";
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: true,
