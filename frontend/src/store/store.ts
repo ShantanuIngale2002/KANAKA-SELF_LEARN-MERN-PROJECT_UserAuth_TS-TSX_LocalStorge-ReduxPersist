@@ -21,3 +21,6 @@ const store = configureStore({
 });
 
 export default store;
+
+// to remove type error while using it.
+export type RootState = ReturnType<typeof store.getState>;

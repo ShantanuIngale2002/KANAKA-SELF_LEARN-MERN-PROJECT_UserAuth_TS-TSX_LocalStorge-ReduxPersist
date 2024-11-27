@@ -186,8 +186,16 @@ Acquired requirements :
 
 - Added apiSlice into store.ts
 
-- 
+- Created src/store/usersApiSlice.ts
+	> As we discussed, apiSlice above is kind of parent to all other slices, hence import that here.
+	> Then specify server-endpoint where we will req on 'USERS_URL', we can speicify it separetly but since project is small hence no need.
+	> using apiSlice, we using 'injectEndpoints' methods here, it injects endpoints of such slices into apiSlice's endpoints ie. dependency injection.
+	> in endpoits, we now add MUTATIONS : methods to modify data (like CRUD) :
+		-> for sing-in : adding mutations 'login' on server-endpoint='api/users/auth' w/ POST method along w/ data.
+		-> 
+	> For mutations, we need to use strict convention of 'use_<_Mutation_Name_>_Mutation' while exporting (ex. useLoginMutation).
+	> In case of query, same convention is used.
 
-
+> LoginScreen.tsx is coded at basic, so that email and password at server is authenticated.
 
 
