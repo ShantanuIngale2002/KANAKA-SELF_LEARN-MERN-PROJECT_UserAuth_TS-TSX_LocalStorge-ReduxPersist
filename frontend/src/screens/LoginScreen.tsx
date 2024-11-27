@@ -6,6 +6,7 @@ import FormContainer from "../components/FormContainer";
 import { useLoginMutation } from "../store/slices/usersApiSlice.ts";
 import { setCredentials } from "../store/slices/authSlice.ts";
 import { RootState } from "../store/store.ts";
+import { toast } from "react-toastify";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -35,7 +36,7 @@ const LoginScreen = () => {
         data?: { message?: string };
         error?: string;
       };
-      console.log(customError?.data?.message || customError?.error);
+      toast.error(customError?.data?.message || customError?.error);
     }
   };
 

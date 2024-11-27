@@ -27,6 +27,7 @@ Acquired requirements :
 - react-router-bootstrap
 - @reduxjs/toolkit
 - react-redux
+- react-toastify
 
 
 
@@ -163,7 +164,7 @@ Acquired requirements :
 
 
 
-------- SESSION 3rd Started @--.--.-- on --/11/2024 (--day--) --------------------------------------------------------
+------- SESSION 3rd Started @02.05.45 on 27/11/2024 (Wednesday) --------------------------------------------------------
 
 - Now we implementing the data persisting, using React Redux, to install,
 	> Goto Frontend and >> 'npm i @reduxjs/toolkit react-redux'
@@ -196,6 +197,27 @@ Acquired requirements :
 	> For mutations, we need to use strict convention of 'use_<_Mutation_Name_>_Mutation' while exporting (ex. useLoginMutation).
 	> In case of query, same convention is used.
 
-> LoginScreen.tsx is coded at basic, so that email and password at server is authenticated.
+- LoginScreen.tsx is coded at basic, so that email and password at server is authenticated.
 
+- To notify user, adding toaster,
+	> npm i react-toastify
+
+- To configure toast in our app,
+	> goto App.tsx and add <ToastContainer /> above Header.
+
+- 'toast' is added in LoginScreen.tsx , over showing the error msg in toast.
+
+- In usersApiSlice.ts, logout mutation is added. To logout the user.
+
+- In Header.tsx, 
+	> the logout mutation from usersSlice : used to make logout req to server endpoint (removes cookie).
+	> logout method from authSlice : used to remove userInfo from state/localstorage.
+
+
+
+
+
+------- SESSION 4th Started @--.--.-- on --/11/2024 (--day--) --------------------------------------------------------
+
+-
 
