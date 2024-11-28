@@ -7,6 +7,7 @@ import { useLoginMutation } from "../store/slices/usersApiSlice.ts";
 import { setCredentials } from "../store/slices/authSlice.ts";
 import { RootState } from "../store/store.ts";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader.tsx";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ const LoginScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [login] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
   const { userInfo } = useSelector((state: RootState) => state.auth);
 
@@ -65,6 +66,7 @@ const LoginScreen = () => {
           ></Form.Control>
         </Form.Group>
 
+        {isLoading && <Loader />}
         <Button className="mt-3" type="submit" variant="primary">
           Sign In
         </Button>
