@@ -224,5 +224,8 @@ Acquired requirements :
 - In RegisterScreen.tsx, 
 	> the register mutation from usersSlice : used to make register req to server endpoint (set credentials and set cookie).
 
+> Now we will start for ProfileScreen page.
+	> To make it accessible if only user is logged in ie.userInfo in state exist : added PrivateRoute component and used in main.tsx
 
+> 
 

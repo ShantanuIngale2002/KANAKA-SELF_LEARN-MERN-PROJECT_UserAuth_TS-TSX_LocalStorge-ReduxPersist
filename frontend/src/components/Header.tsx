@@ -41,14 +41,16 @@ const Header = () => {
               {userInfo ? (
                 <>
                   <NavDropdown title={userInfo.name} id="username">
-                    <Nav.Link as={Link} to="/profile">
-                      <NavDropdown.Item>Profile</NavDropdown.Item>
-                    </Nav.Link>
-                    <Nav.Link as={Link} to="/logout">
-                      <NavDropdown.Item onClick={logoutHandler}>
+                    <NavDropdown.Item>
+                      <Nav.Link as={Link} to="/profile" className="text-black">
+                        Profile
+                      </Nav.Link>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={logoutHandler}>
+                      <Nav.Link as={Link} to="/logout" className="text-black">
                         Logout
-                      </NavDropdown.Item>
-                    </Nav.Link>
+                      </Nav.Link>
+                    </NavDropdown.Item>
                   </NavDropdown>
                 </>
               ) : (
