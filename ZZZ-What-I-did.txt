@@ -228,5 +228,6 @@ Acquired requirements :
 	> Just created basic ProfileScreen.tsx screen.
 	> To make it accessible if only user is logged in ie.userInfo in state exist : added PrivateRoute component and used in main.tsx
 
-> 
+> in usersSlice, updateUser mutation is added and used in profile screen.
 
+> ProfileScreen in scripted to see and update user's info.
