@@ -219,5 +219,10 @@ Acquired requirements :
 
 ------- SESSION 4th Started @--.--.-- on --/11/2024 (--day--) --------------------------------------------------------
 
--
+- In usersApiSlice.ts, register mutation is added. To register the user.
+
+- In RegisterScreen.tsx, 
+	> the register mutation from usersSlice : used to make register req to server endpoint (set credentials and set cookie).
+
+
 

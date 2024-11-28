@@ -1,7 +1,13 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import FormContainer from "../components/FormContainer";
+import { setCredentials } from "../store/slices/authSlice.ts";
+import { useSelector, useDispatch } from "react-redux";
+import { useRegisterMutation } from "../store/slices/usersApiSlice.ts";
+import { RootState } from "../store/store.ts";
+import { toast } from "react-toastify";
+import Loader from "../components/Loader.tsx";
 
 const LoginScreen = () => {
   const [name, setName] = useState("");
@@ -9,9 +15,36 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { userInfo } = useSelector((state: RootState) => state.auth);
+
+  const [register, { isLoading }] = useRegisterMutation();
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
+
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Submit Form !!");
+    if (password != confirmPassword) {
+      toast.error("Password does not match !!");
+    } else {
+      try {
+        const res = await register({ name, email, password }).unwrap();
+        dispatch(setCredentials({ ...res }));
+        navigate("/");
+      } catch (err) {
+        const customError = err as {
+          data?: { message: string };
+          error: string;
+        };
+        toast.error(customError?.data?.message || customError.error);
+      }
+    }
   };
 
   return (
@@ -58,6 +91,8 @@ const LoginScreen = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
+
+        {isLoading && <Loader />}
 
         <Button className="mt-3" type="submit" variant="primary">
           Sign Up
