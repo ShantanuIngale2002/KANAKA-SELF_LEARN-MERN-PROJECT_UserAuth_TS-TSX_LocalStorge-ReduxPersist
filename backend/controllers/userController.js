@@ -48,7 +48,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid User Data !!");
   }
 
-  res.status(200).json({ message: "Register User" });
+  // res.status(200).json({ message: "Register User" }); // multiple responses for same req return 'cannot set headers' error.
 });
 
 // @desc    Logout a user
