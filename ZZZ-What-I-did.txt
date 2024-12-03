@@ -217,7 +217,7 @@ Acquired requirements :
 
 
 
-------- SESSION 4th Started @--.--.-- on --/11/2024 (--day--) --------------------------------------------------------
+------- SESSION 4th Started @02.51.52 on 28/11/2024 (--day--) --------------------------------------------------------
 
 - In usersApiSlice.ts, register mutation is added. To register the user.
 
